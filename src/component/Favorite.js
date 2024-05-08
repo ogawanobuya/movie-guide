@@ -16,19 +16,24 @@ const Favorite = () => {
 
   useEffect(() => {
     const moviesCollectionRef = collection(db, 'favorite_movies');
-    const fetchData = async (movieId) => {
-      const fetchUrl = requests.fetchById.replace('movieId', movieId);
+    const fetchData = async (fetchUrl) => {
       const request = await api.get(fetchUrl);
-      setMovies(Array.from(new Set([...movies, request.data])));
-      console.log(movies);
+      return request.data;
     };
 
     getDocs(moviesCollectionRef)
     .then((querySnapshot) => {
       querySnapshot.docs.map((doc) => {
+        // React hooksのset関数を使う場合、set関数はmapなどによる連続的な呼び出しに耐えられないためfavoriteIds(Array)を使用
         favoriteIds.push(doc.data().movie_id);
       });
-      favoriteIds.forEach((favoriteId) => fetchData(favoriteId));
+      // お気に入り映画のIDを取り出し、全てAPIのエンドポイントに変えて配列に格納(Setで重複も消す)
+      const fetchUrls = Array.from(new Set(favoriteIds.map((favoriteId) => requests.fetchById.replace('movieId', favoriteId))));
+      const fetchFunc = fetchUrls.map((fetchUrl) => fetchData(fetchUrl));
+      // set関数は連続的な呼び出しに弱いため、fetchDataの中で呼び出すのではなく、Promise.allで一括実行したのち、その結果を一度のset呼び出しで格納する
+      Promise.all(fetchFunc).then((res) => {
+        setMovies(res);
+      });
     });
 
   }, []);
