@@ -1,0 +1,113 @@
+html{
+  background-color: black;
+}
+
+.link{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 140px;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+.link:hover{
+  opacity: .7;
+  transition: .3s;
+}
+.app .link{
+  background-color: #ffa100;
+}
+.favorite .link{
+  background-color: #0867fd;
+}
+
+
+.app {
+  color: white;
+}
+.app_description{
+  padding: 0 20px;
+  font-size: 25px;
+}
+
+.row{
+  padding: 20px;
+}
+.row_posters {
+  display: flex;
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.row_posters::-webkit-scrollbar {
+  display: none;
+}
+
+.row_poster {
+  object-fit: contain;
+  width: 100%;
+  max-height: 300px;
+  transition: transform 450ms;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.row_poster:hover {
+  transform: scale(1.08);
+}
+
+
+.head{
+  object-fit: contain;
+  color: white;
+  height: 40vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+.head_contents{
+  padding: 30px;
+}
+.head_description{
+  max-width: 600px;
+}
+.head_button{
+  cursor: pointer;
+  color: white;
+  background-color: rgba(70, 70, 70, .6);
+  border-radius: 5px;
+  padding: 10px 30px;
+  margin-right: 10px;
+  border: none;
+  font-size: 15px;
+}
+.head_button:hover{
+  background-color: rgba(120, 120, 120, .6);
+  transition: .3s;
+}
+
+.favorite{
+  color: white;
+}
+.favorite_description {
+  width: 90%;
+  margin: 80px auto;
+}
+.favorite_contents {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  width: 90%;
+  margin: 0 auto;
+}
+.favorite_content {
+  width: 32%;
+  margin-bottom: 20px;
+}
+.favorite_poster {
+  width: 100%;
+  margin-bottom: 10px;
+}
