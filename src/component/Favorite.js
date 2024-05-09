@@ -8,6 +8,7 @@ import { db } from '../util/firebase';
 import api from '../util/movieApi';
 import requests from '../util/requests';
 import { Link } from "react-router-dom";
+import { Helmet } from 'react-helmet-async';
 
 
 const posterBaseUrl = 'https://image.tmdb.org/t/p/original';
@@ -41,6 +42,9 @@ const Favorite = () => {
 
   return (
     <div className="favorite">
+      <Helmet>
+        <title>Favorite List</title>
+      </Helmet>
       <Link className="link" to="/">ホームに戻る</Link>
 
       <h1 className="favorite_description">あなたのお気に入りの映画をここに保存しています</h1>
