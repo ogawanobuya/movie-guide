@@ -35,11 +35,11 @@ const Front = () => {
         const q = query(collection(db, "favorite_movies"), where("movie_id", "==", movie.id));
         const querySnapshot = await getDocs(q);
         // querySnapshot.exist()やquerySnapshot.docs.exist()は使えない
-        if (querySnapshot.docs.length) {
+        if (querySnapshot.docs.length && favRemRef.current && favAddRef.current) {
           // 既にお気に入りに登録されている場合
           favRemRef.current.style.display = "inline-block";
           favAddRef.current.style.display = "none";
-        } else {
+        } else if (favRemRef.current && favAddRef.current) {
           favRemRef.current.style.display = "none";
           favAddRef.current.style.display = "inline-block";
         }

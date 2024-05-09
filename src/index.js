@@ -5,8 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 import './index.css';
 
-import App from './App';
 import { Routing } from "./routing";
+import { AuthProvider } from './context/AuthContext';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -14,9 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <HelmetProvider>
-      <BrowserRouter>
-        <Routing />
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routing />
+        </BrowserRouter>
+      </AuthProvider>
     </HelmetProvider>
   </React.StrictMode>
 );

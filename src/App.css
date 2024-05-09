@@ -151,3 +151,15 @@ html{
 .sign_up_button:hover{
   background-color: rgba(250, 250, 250, .6);
 }
+.sign_up_button.login{
+  background-color: rgba(0, 152, 0, .6);
+}
+.sign_up_button.login:hover{
+  background-color: rgba(148, 255, 0, .6);
+}
+.sign_up_link {
+  color: #f883f7;
+}
+.sign_up_link:hover {
+  opacity: .6;
+}

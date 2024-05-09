@@ -1,29 +1,29 @@
 import '../App.css';
 
 import { auth } from '../util/firebase';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from "react-router-dom";
 
 
-const SignUp = () => {
+const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  // リダイレクトに使う
   const navigate = useNavigate();
 
-  const handleSingUp = () => {
+  const handleSingIn = () => {
     if (email && password) {
-      createUserWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-      // 登録したユーザーを返す
+      // ログインしたユーザーを返す
         const user = userCredential.user;
-        alert("ユーザー登録完了しました");
         navigate("/");
       })
       .catch((error) => {
-        alert("ユーザー登録に失敗しました\n"+error.message);
+        alert("ログインに失敗しました\n"+error.message);
       });
     }
   }
@@ -33,7 +33,7 @@ const SignUp = () => {
       <Helmet>
         <title>Sign Up</title>
       </Helmet>
-      <h1 className="sign_up_description">ユーザー登録してMovie Guideにアクセス</h1>
+      <h1 className="sign_up_description">ログインしてMovie Guideにアクセス</h1>
       <div className="sign_up_form">
         <label>メールアドレス</label>
         <input
@@ -54,14 +54,14 @@ const SignUp = () => {
       </div>
       <div className="sign_up_form">
         <button
-          className="sign_up_button"
-          onClick={() => handleSingUp()}
-        >登録</button>
+          className="sign_up_button login"
+          onClick={() => handleSingIn()}
+        >ログイン</button>
       </div>
 
-      <Link className="sign_up_link" to="/sign-in">アカウントをお持ちの方はこちらから</Link>
+      <Link className="sign_up_link" to="/sign-up">アカウント作成はこちらから</Link>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;
