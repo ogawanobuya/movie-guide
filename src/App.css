@@ -19,7 +19,13 @@ html{
   opacity: .7;
   transition: .3s;
 }
-.app .link{
+.app .link.logout{
+  color: black;
+  background-color: #eeeeee;
+  border: none;
+}
+.app .link.toList{
+  top: 70px;
   background-color: #ffa100;
 }
 .favorite .link{
@@ -162,4 +168,9 @@ html{
 }
 .sign_up_link:hover {
   opacity: .6;
+}
+
+.loading {
+  width: 90%;
+  margin: 80px auto;
 }

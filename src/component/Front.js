@@ -11,7 +11,7 @@ import YouTube from 'react-youtube';
 import movieTrailer from 'movie-trailer';
 
 
-const Front = () => {
+const Front = (props) => {
   const moviesCollectionRef = collection(db, 'favorite_movies');
   const [movie, setMovie] = useState();
   const [trailerUrl, setTrailerUrl] = useState('');
@@ -31,17 +31,21 @@ const Front = () => {
 
     const existFav = async (movie) => {
       if (movie) {
-        // Firestoreにおけるクエリ検索の仕方
-        const q = query(collection(db, "favorite_movies"), where("movie_id", "==", movie.id));
-        const querySnapshot = await getDocs(q);
-        // querySnapshot.exist()やquerySnapshot.docs.exist()は使えない
-        if (querySnapshot.docs.length && favRemRef.current && favAddRef.current) {
-          // 既にお気に入りに登録されている場合
-          favRemRef.current.style.display = "inline-block";
-          favAddRef.current.style.display = "none";
-        } else if (favRemRef.current && favAddRef.current) {
-          favRemRef.current.style.display = "none";
-          favAddRef.current.style.display = "inline-block";
+        try {
+          // Firestoreにおけるクエリ検索の仕方
+          const q = query(collection(db, "favorite_movies"), where("movie_id", "==", movie.id), where('user_id', '==', props.uid));
+          const querySnapshot = await getDocs(q);
+          // querySnapshot.exist()やquerySnapshot.docs.exist()は使えない
+          if (querySnapshot.docs.length && favRemRef.current && favAddRef.current) {
+            // 既にお気に入りに登録されている場合
+            favRemRef.current.style.display = "inline-block";
+            favAddRef.current.style.display = "none";
+          } else if (favRemRef.current && favAddRef.current) {
+            favRemRef.current.style.display = "none";
+            favAddRef.current.style.display = "inline-block";
+          }
+        } catch (error) {
+          console.log(error);
         }
       }
     }
@@ -73,7 +77,7 @@ const Front = () => {
       const documentRef = await addDoc(moviesCollectionRef, {
         // movie_idはqueryを行うため、型に注目
         movie_id: movieId,
-        user_id: '9999',
+        user_id: props.uid,
       });
       alert("お気に入りに追加しました")
       favRemRef.current.style.display = "inline-block";
@@ -85,7 +89,7 @@ const Front = () => {
 
   const remFav = async (movieId) => {
     try{
-      const q = query(moviesCollectionRef, where('movie_id', '==', movieId));
+      const q = query(moviesCollectionRef, where('movie_id', '==', movieId), where('user_id', '==', props.uid));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach(async (document) => {
         const favDocRef = doc(db, 'favorite_movies', document.id);

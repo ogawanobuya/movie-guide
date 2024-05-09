@@ -6,10 +6,11 @@ import requests from '../util/requests';
 import { Link } from "react-router-dom";
 import { Helmet } from 'react-helmet-async';
 
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../util/firebase';
 
 import AuthStateChecker from '../component/AuthStateChecker';
+import { useAuthContext } from '../context/AuthContext';
 
 
 const posterBaseUrl = 'https://image.tmdb.org/t/p/original';
@@ -17,15 +18,16 @@ const posterBaseUrl = 'https://image.tmdb.org/t/p/original';
 const Favorite = () => {
   const favoriteIds = [];
   const [movies, setMovies] = useState([]);
+  const { currentUser } = useAuthContext();
 
   useEffect(() => {
-    const moviesCollectionRef = collection(db, 'favorite_movies');
+    const q = query(collection(db, "favorite_movies"), where("user_id", "==", currentUser.uid));
     const fetchData = async (fetchUrl) => {
       const request = await api.get(fetchUrl);
       return request.data;
     };
 
-    getDocs(moviesCollectionRef)
+    getDocs(q)
     .then((querySnapshot) => {
       querySnapshot.docs.map((doc) => {
         // React hooksのset関数を使う場合、set関数はmapなどによる連続的な呼び出しに耐えられないためfavoriteIds(Array)を使用
