@@ -1,9 +1,10 @@
 import '../App.css';
 
 import { useState, useEffect, useRef } from 'react';
-import { collection, getDocs } from '@firebase/firestore';
 
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../util/firebase';
+
 import api from '../util/movieApi';
 import requests from '../util/requests';
 import { Link } from "react-router-dom";

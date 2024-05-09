@@ -83,10 +83,22 @@ html{
   margin-right: 10px;
   border: none;
   font-size: 15px;
+  transition: .3s;
 }
 .head_button:hover{
   background-color: rgba(120, 120, 120, .6);
-  transition: .3s;
+}
+.head_button.add {
+  background-color: rgba(255, 143, 65, .6);
+}
+.head_button.add:hover{
+  background-color: rgba(255, 211, 65, .6);
+}
+.head_button.rem {
+  background-color: rgba(0, 0, 190, .6);
+}
+.head_button.rem:hover{
+  background-color: rgba(61, 136, 226, .6);
 }
 
 .favorite{
