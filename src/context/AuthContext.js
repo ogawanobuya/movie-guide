@@ -19,6 +19,7 @@ export function AuthProvider({ children }) {
         setCurrentUser(user);
         setSignInCheck(true);
       } else {
+        setCurrentUser('');
         setSignInCheck(true);
       }
     });
@@ -30,7 +31,7 @@ export function AuthProvider({ children }) {
 
   // これがないとリロードした時に非同期のonAuthStateChangedにより一瞬ログインユーザー不在となり、サインインページに引き戻される
   if (signInCheck) {
-    return <AuthContext.Provider value={{currentUser, signInCheck}}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{currentUser}}>{children}</AuthContext.Provider>;
   } else {
     // ログイン情報読み込み中
     return <Loading />;

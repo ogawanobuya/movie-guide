@@ -20,9 +20,11 @@ const App = () => {
   const logOut = () => {
     const result = window.confirm('あなたは今「'+currentUser.email+'」のメアドでログインしています。ログアウトしますか？');
     if( result ) {
-      auth.signOut()
-      // signOutが非同期関数であり、なぜかthenやawaitが効かないので、AuthStateCheckerにサインアウト判別のパラメタを送る
-      navigate('/sign-in', { state: { isSignOut: true, } });
+      signOut(auth).then(() => {
+        navigate('/sign-in');
+      }).catch((error) => {
+        console.log("ログアウト失敗");
+      });
     }
     else {
       return null;
@@ -31,7 +33,7 @@ const App = () => {
 
   return (
     <AuthStateChecker>
-      <div className="app">
+      <div className="app"> 
         <Helmet>
           <title>Movie Guide</title>
         </Helmet>
