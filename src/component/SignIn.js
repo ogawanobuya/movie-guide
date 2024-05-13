@@ -33,7 +33,7 @@ const SignIn = () => {
     <AuthStateChecker isOutside>
       <div className="sign_up">
         <Helmet>
-          <title>Sign Up</title>
+          <title>Sign In</title>
         </Helmet>
         <h1 className="sign_up_description">ログインしてMovie Guideにアクセス</h1>
         <div className="sign_up_form">
