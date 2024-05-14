@@ -1,9 +1,10 @@
 import '../App.css';
 
 import { useState, useEffect } from 'react';
-import api from '../util/movieApi';
 import YouTube from 'react-youtube';
-import movieTrailer from 'movie-trailer';
+
+import api from '../util/movieApi';
+import { handleVideo } from '../util/handleVideo';
 
 const posterBaseUrl = 'https://image.tmdb.org/t/p/original';
 
@@ -20,20 +21,6 @@ const Row = ({ title, fetchUrl }) => {
     fetchData();
   }, [fetchUrl]);
 
-  const handleClick = (movie) => {
-    if (trailerUrl) {
-      setTrailerUrl('');
-    } else {
-      movieTrailer(movie?.name || movie?.title)
-        .then((url) => {
-          const urlParams = new URLSearchParams(new URL(url).search);
-          // YouTube URLはこのような形になっている「https://www.youtube.com/watch?v=4dTzktjYIx4」
-          setTrailerUrl(urlParams.get('v'));
-        })
-        .catch((error) => console.error(error.message));
-    }
-  }
-
   return (
     <div className="row">
       <h2>{title}</h2>
@@ -42,7 +29,7 @@ const Row = ({ title, fetchUrl }) => {
         {movies.map(movie =>(
           <img 
             key={movie.id}
-            onClick={() => handleClick(movie)}
+            onClick={() => handleVideo(movie, trailerUrl, setTrailerUrl)}
             className="row_poster"
             src={posterBaseUrl+movie.poster_path} 
             alt={movie.name}

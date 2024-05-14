@@ -1,35 +1,19 @@
 import './App.css';
-import Row from './component/Row';
-import Front from './component/Front';
-import AuthStateChecker from './component/AuthStateChecker';
-import { useAuthContext } from './context/AuthContext';
 
-import requests from './util/requests';
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from "react-router-dom";
 
-import { auth } from './util/firebase';
-import { signOut } from 'firebase/auth';
+import Row from './component/Row';
+import Front from './component/Front';
+import AuthStateChecker from './component/AuthStateChecker';
+import requests from './util/requests';
+import { logOut } from './util/auth';
+import { useAuthContext } from './context/AuthContext';
 
 
 const App = () => {
-  const navigate = useNavigate();
   const { currentUser } = useAuthContext();
-
-  const logOut = () => {
-    const result = window.confirm('あなたは今「'+currentUser.email+'」のメアドでログインしています。ログアウトしますか？');
-    if( result ) {
-      signOut(auth).then(() => {
-        navigate('/sign-in');
-      }).catch((error) => {
-        console.log("ログアウト失敗");
-      });
-    }
-    else {
-      return null;
-    }
-  }
 
   return (
     <AuthStateChecker>
@@ -47,7 +31,7 @@ const App = () => {
         <Row title='アクション映画' fetchUrl={requests.fetchActionMovies} />
         <Row title='コメディ映画' fetchUrl={requests.fetchComedyMovies} />
 
-        <button className="link logout" onClick={() => logOut()}>ログアウト</button>
+        <button className="link logout" onClick={() => logOut(currentUser)}>ログアウト</button>
         <Link className="link toList" to="/favorite">お気に入りリスト</Link>
       </div>
     </AuthStateChecker>

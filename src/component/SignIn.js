@@ -1,33 +1,16 @@
 import '../App.css';
 
-import { auth } from '../util/firebase';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import AuthStateChecker from '../component/AuthStateChecker';
-
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
+import AuthStateChecker from '../component/AuthStateChecker';
+import { handleSingIn } from '../util/auth';
 
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // リダイレクトに使う
-  const navigate = useNavigate();
-
-  const handleSingIn = () => {
-    if (email && password) {
-      signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-      // ログインしたユーザーを返す
-        const user = userCredential.user;
-        navigate("/");
-      })
-      .catch((error) => {
-        alert("ログインに失敗しました\n"+error.message);
-      });
-    }
-  }
 
   return (
     <AuthStateChecker isOutside>
@@ -57,7 +40,7 @@ const SignIn = () => {
         <div className="sign_up_form">
           <button
             className="sign_up_button login"
-            onClick={() => handleSingIn()}
+            onClick={() => handleSingIn(email, password)}
           >ログイン</button>
         </div>
 
