@@ -2,7 +2,7 @@ import './App.css';
 
 import { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Row from './component/Row';
 import Front from './component/Front';
