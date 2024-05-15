@@ -28,6 +28,8 @@ describe('Unit Test for App', () => {
   });
 
   it('check if logOut func is working when putting button', async () => {
+    // モック化したlogOut()に返り値を設定
+    logOut.mockImplementation(() => true);
     render(
       <HelmetProvider>
         <AuthProvider>
@@ -37,8 +39,6 @@ describe('Unit Test for App', () => {
         </AuthProvider>
       </HelmetProvider>
     );
-    // モック化したlogOut()に返り値を設定
-    logOut.mockImplementation(() => true);
 
     expect(await screen.findByRole('button', {name: /ログアウト/i})).toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', {name: /ログアウト/i}));

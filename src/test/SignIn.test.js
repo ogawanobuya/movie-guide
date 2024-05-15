@@ -32,6 +32,8 @@ describe('Unit Test for SignIn', () => {
   });
 
   it('check action of form input and submit', async () => {
+    // モック化した関数の返り値を設定(元が非同期処理であるため返り値も同様にする)
+    signInWithEmailAndPassword.mockImplementation(() => Promise.resolve());
     render(
       <HelmetProvider>
         <AuthProvider>
@@ -41,8 +43,6 @@ describe('Unit Test for SignIn', () => {
         </AuthProvider>
       </HelmetProvider>
     );
-    // モック化した関数の返り値を設定(元が非同期処理であるため返り値も同様にする)
-    signInWithEmailAndPassword.mockImplementation(() => Promise.resolve());
 
     // emailフォームの挙動確認
     const emailInput = await screen.findByPlaceholderText('hoge@gmail.com');
