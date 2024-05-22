@@ -3,13 +3,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD2dX1L8GQtMSonGl6DoqXC2-3jEE0Ij04",
-  authDomain: "movie-guide-5ece0.firebaseapp.com",
-  projectId: "movie-guide-5ece0",
-  storageBucket: "movie-guide-5ece0.appspot.com",
-  messagingSenderId: "741257054701",
-  appId: "1:741257054701:web:de1e5f76c1344cd218ffe4",
-  measurementId: "G-7FQJ506LFM"
+  apiKey: process.env.API_KEY,
+  authDomain: process.env.AUTHDOMAIN,
+  projectId: process.env.PROJECTID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID,
+  appId: process.env.APPID,
+  measurementId: process.env.MEASUREMENTID
 };
 // Firebaseをインスタンス化
 const app = initializeApp(firebaseConfig);
