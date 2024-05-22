@@ -18,7 +18,7 @@ const SignIn = () => {
         <Helmet>
           <title>Sign In</title>
         </Helmet>
-        <h1 className="sign_up_description">ログインしてMovie Guideにアクセス！！</h1>
+        <h1 className="sign_up_description">ログインしてMovie Guideにアクセス！！！</h1>
         <div className="sign_up_form">
           <label>メールアドレス</label>
           <input
